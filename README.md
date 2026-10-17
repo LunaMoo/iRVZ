@@ -8,6 +8,13 @@ program can repack between formats entirely in RAM.
 Made by Claude AI based on LunaMoo idea. Licensed under GPL-3.0 (the WIA/RVZ code is Dolphin's,
 GPL-2.0-or-later).
 
+## Status
+
+Version 1.0.0. Images made by iRVZ were tested in Dolphin and with a real Wii game: they load and
+play correctly, and extracting them gives back the original ISO unchanged (byte-for-byte). The
+files iRVZ produces are slightly smaller than Dolphin's for the same settings and the conversion
+is slightly faster.
+
 ## What's supported
 
 Everything WIABlob.cpp supports:
@@ -24,7 +31,8 @@ seeds. Input for compression can be a plain ISO/GCM or another WIA/RVZ (converts
 
 Compared with Dolphin, the only intentional differences are:
 - LZMA and LZMA2 use the LZMA SDK (26.02, the same copy CHDmodern ships) instead of liblzma. The
-  streams are the same format, but the compressed bytes differ from Dolphin's output.
+  streams are the same format, but the compressed bytes differ from Dolphin's output, so compare
+  images by extracting them, not by comparing the compressed files.
 - Whole-image extraction is multithreaded; dictionaries are capped at the chunk size when reading.
 - A buffer overrun in Dolphin's WIA writer (chunks over 2 MiB ending in a partial Wii group) is fixed.
 
