@@ -75,6 +75,8 @@ void Context::Block(const u8* p) {
 }
 
 void Context::Update(const void* data, std::size_t size) {
+	if (size == 0)
+		return;
 	const u8* p = static_cast<const u8*>(data);
 	length_ += size;
 	if (used_) {

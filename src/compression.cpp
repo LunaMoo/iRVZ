@@ -252,7 +252,43 @@ public:
 		out->bytes_written += out_size;
 
 		m_done = status == LZMA_STATUS_FINISHED_WITH_MARK;
-		return result == SZ_OK;
+		if (result != SZ_OK)
+			return false;
+
+		// With the output buffer full, the SDK (unlike liblzma) doesn't look at the end marker that
+		// may follow. Check for it here without disturbing the decoder if it isn't there (the output
+		// may only be full for now, e.g. while RVZ packing hands out one segment at a time).
+		if (!m_done && out->bytes_written == out->data.size() && *in_bytes_read < in.bytes_written) {
+			const u8* next = in.data.data() + *in_bytes_read;
+			if (m_lzma2) {
+				// Between chunks, control byte 0 ends the stream. That's state 0 (LZMA2_STATE_CONTROL),
+				// or state 7 (LZMA2_STATE_DATA_CONT) with nothing left of the current LZMA chunk.
+				const bool between_chunks =
+				    m_lzma2_dec.state == 0 ||
+				    (m_lzma2_dec.state == 7 && m_lzma2_dec.unpackSize == 0 && m_lzma2_dec.packSize == 0);
+				if (between_chunks && *next == 0) {
+					++*in_bytes_read;
+					m_done = true;
+				}
+			} else {
+				// Probe on a copy of the decoder. If the next symbol is a match that isn't the end marker,
+				// decoding it updates the (shared) probability table, so that is saved and restored.
+				CLzmaDec probe = m_lzma;
+				m_saved_probs.assign(m_lzma.probs, m_lzma.probs + m_lzma.numProbs);
+				SizeT probe_in = in.bytes_written - *in_bytes_read;
+				SizeT probe_out = 0;
+				u8 dummy;
+				if (LzmaDec_DecodeToBuf(&probe, &dummy, &probe_out, next, &probe_in, LZMA_FINISH_END, &status) == SZ_OK &&
+				    status == LZMA_STATUS_FINISHED_WITH_MARK) {
+					m_lzma = probe;
+					*in_bytes_read += probe_in;
+					m_done = true;
+				} else {
+					std::copy(m_saved_probs.begin(), m_saved_probs.end(), m_lzma.probs);
+				}
+			}
+		}
+		return true;
 	}
 
 private:
@@ -260,6 +296,7 @@ private:
 	bool m_valid = false;
 	CLzmaDec m_lzma;
 	CLzma2Dec m_lzma2_dec;
+	std::vector<CLzmaProb> m_saved_probs;
 };
 
 class ZstdDecompressor final : public Decompressor {

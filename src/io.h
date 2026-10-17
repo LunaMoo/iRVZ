@@ -58,7 +58,8 @@ public:
 	bool ReadAt(u64 offset, void* buf, std::size_t len) override {
 		if (offset > m_size || len > m_size - offset)
 			return false;
-		std::memcpy(buf, m_data + offset, len);
+		if (len)
+			std::memcpy(buf, m_data + offset, len);
 		return true;
 	}
 

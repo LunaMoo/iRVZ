@@ -1719,7 +1719,10 @@ struct Writer {
 								if (i == 0)
 									entry.main_data.resize(bytes_to_write_total);
 
-								const u64 bytes_to_write = std::min(bytes_to_write_total, Wii::GROUP_DATA_SIZE);
+								// (Dolphin uses bytes_to_write_total here, which overruns main_data when a chunk of
+								// more than 2 MiB ends in a partial group)
+								const u64 bytes_to_write =
+								    std::min(bytes_to_write_total - write_offset_of_group, Wii::GROUP_DATA_SIZE);
 
 								std::memcpy(entry.main_data.data() + write_offset_of_group, in_ptr, bytes_to_write);
 
