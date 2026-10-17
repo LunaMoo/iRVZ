@@ -1,0 +1,9 @@
+/build*/
+/out/
+/.vs/
+/.vscode/
+/.idea/
+CMakeUserPresets.json
+*.iso
+*.rvz
+*.wia
