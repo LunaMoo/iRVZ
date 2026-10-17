@@ -1,6 +1,6 @@
 // iRVZ - WIA/RVZ disc image library
 // Copyright 2018-2020 Dolphin Emulator Project, 2026 iRVZ contributors
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Small helpers shared by every file: fixed-width types, big-endian conversion and alignment.
 #pragma once

@@ -1,5 +1,5 @@
 // iRVZ - WIA/RVZ disc image library
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Where bytes come from and go to: files, memory or the caller's callbacks. Everything above this
 // layer works the same whether an image lives on disk or in RAM.

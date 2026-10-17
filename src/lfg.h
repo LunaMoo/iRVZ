@@ -1,6 +1,6 @@
 // iRVZ - WIA/RVZ disc image library
 // Copyright 2020 Dolphin Emulator Project
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // The pseudo-random generator Nintendo's mastering tools used for disc padding ("junk data").
 // RVZ stores such data as a 68-byte seed. Ported from Dolphin's LaggedFibonacciGenerator.h.

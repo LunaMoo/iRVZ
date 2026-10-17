@@ -1,6 +1,6 @@
 // iRVZ - WIA/RVZ disc image library
 // Copyright 2020 Dolphin Emulator Project
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Ported from Dolphin's Source/Core/DiscIO/WIACompression.cpp. The LZMA and LZMA2 codecs use the
 // LZMA SDK instead of liblzma: WIA stores raw LZMA streams (with an end marker) and raw LZMA2

@@ -1,6 +1,6 @@
 // iRVZ - WIA/RVZ disc image library
 // Copyright 2020 Dolphin Emulator Project
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // The codecs of WIA and RVZ chunks (none, Purge, bzip2, LZMA, LZMA2, Zstandard) and RVZ packing,
 // behind streaming Decompressor / Compressor interfaces. Ported from Dolphin's WIACompression.h,
@@ -56,7 +56,7 @@ std::unique_ptr<Decompressor> CreateDecompressor(CompressionType type, const u8*
                                                  std::size_t compressor_data_size, u64 max_output,
                                                  u64 purge_size);
 
-// Undoes RVZ packing on top of another decompressor (see docs/format.md).
+// Undoes RVZ packing on top of another decompressor.
 std::unique_ptr<Decompressor> CreateRVZPackDecompressor(std::unique_ptr<Decompressor> decompressor,
                                                         DecompressionBuffer decompressed, u64 data_offset,
                                                         u32 rvz_packed_size);

@@ -1,5 +1,5 @@
 // iRVZ - WIA/RVZ disc image library
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Plain C++ SHA-1 and table-based AES-128, with an AES-NI path picked at run time on x86.
 

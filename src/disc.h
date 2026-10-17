@@ -1,6 +1,6 @@
 // iRVZ - WIA/RVZ disc image library
 // Copyright 2008-2020 Dolphin Emulator Project
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 //
 // The few parts of GameCube / Wii disc structure that WIA and RVZ depend on: Wii partitions
 // (tickets, title keys, hashed and encrypted 32 KiB blocks) and the file system table that RVZ uses

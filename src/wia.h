@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Reading and writing WIA and RVZ images. Ported from Dolphin's Source/Core/DiscIO/WIABlob.h.
-// The format is described in docs/format.md.
+// The format is documented in Dolphin's docs/WiaAndRvz.md.
 #pragma once
 
 #include <functional>
@@ -63,7 +63,7 @@ struct ConvertOptions {
 // done / total in input bytes. Returning false cancels. Called on the converting thread.
 using ProgressCallback = std::function<bool(u64 done, u64 total)>;
 
-// Checks chunk size, compression method and level for the format. Empty if they're fine.
+// Checks chunk size, compression method and level for the format. Null if they're fine.
 const char* ValidateConvertOptions(const ConvertOptions& options);
 
 ConversionResultCode ConvertToWIAOrRVZ(BlobReader* infile, Sink* outfile, const ConvertOptions& options,

@@ -128,8 +128,10 @@ int Info(const char* path) {
 	static const char* disc_types[] = {"unknown", "GameCube", "Wii"};
 	std::printf("format:      %s %u.%02x\n", info.format == IRVZ_FORMAT_RVZ ? "RVZ" : "WIA", info.version >> 24,
 	            (info.version >> 16) & 0xFF);
-	std::printf("disc:        %s, %s \"%s\"\n", info.disc_type < 3 ? disc_types[info.disc_type] : "?", info.game_id,
-	            info.title);
+	if (info.disc_type == 1 || info.disc_type == 2)
+		std::printf("disc:        %s, %s \"%s\"\n", disc_types[info.disc_type], info.game_id, info.title);
+	else
+		std::printf("disc:        unknown (not a GameCube/Wii disc)\n");
 	std::printf("compression: %s, level %d, chunk %u KiB\n", irvz_compression_name(info.compression),
 	            info.compression_level, info.chunk_size / 1024);
 	std::printf("size:        %llu -> %llu bytes (%.1f%%)\n", static_cast<unsigned long long>(info.iso_size),
